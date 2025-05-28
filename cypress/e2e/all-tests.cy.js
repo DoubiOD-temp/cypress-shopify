@@ -3,7 +3,7 @@ describe('RealBeans Webshop End-to-End Tests', () => {
     cy.visit('/');
     cy.get('body').then(($body) => {
       if ($body.find('input[name="password"]').length > 0) {
-        cy.get('input[name="password"]').type('ocleid');
+        cy.get('input[name="password"]').type('robert');
         cy.get('button[type="submit"]').click();
         cy.url().should('include', '/');
       }

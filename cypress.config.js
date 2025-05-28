@@ -1,6 +1,7 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
+  projectId: "jt4q9w",
   e2e: {
     baseUrl: 'https://r1020640-realbeans.myshopify.com',
     viewportWidth: 1280,
