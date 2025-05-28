@@ -5,8 +5,8 @@
     "@shopify/theme": "^3.x.x"
   },
     "scripts": {
-    "start": "shopify theme dev",
-    "build": "shopify theme build",
-    "deploy": "shopify theme push"
+      "start": "shopify theme dev --store=r1020640-realbeans.myshopify.com",
+      "build": "shopify theme build",
+      "deploy": "shopify theme push"
   }
 }
