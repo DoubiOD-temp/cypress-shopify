@@ -1,12 +1,9 @@
 {
   "devDependencies": {
-    "cypress": "^14.4.0",
-        "@shopify/cli": "^3.x.x",
-    "@shopify/theme": "^3.x.x"
+    "cypress": "^14.4.0"
   },
-    "scripts": {
-      "start": "shopify theme dev --store=r1020640-realbeans.myshopify.com",
-      "build": "shopify theme build",
-      "deploy": "shopify theme push"
+  "scripts": {
+    "test": "cypress run",
+    "cypress:open": "cypress open"
   }
 }

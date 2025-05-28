@@ -2,40 +2,30 @@ name: Cypress Tests
 on: [push]
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install
 
-      - name: Install Cypress binary
-        run: pnpx cypress install
-
-      # For Shopify themes, you may need to authenticate
-      - name: Setup Shopify CLI
-        run: |
-          pnpx @shopify/cli version
-
-      - uses: cypress-io/github-action@v6
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
         with:
-          start: pnpm start
-          wait-on: 'http://localhost:9292'  # Shopify CLI default port
-          wait-on-timeout: 120
+          install: false
           record: true
         env:
-          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_CLI_AUTH_TOKEN }}
-          SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
