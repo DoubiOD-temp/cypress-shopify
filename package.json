@@ -1,5 +1,12 @@
 {
   "devDependencies": {
-    "cypress": "^14.4.0"
+    "cypress": "^14.4.0",
+        "@shopify/cli": "^3.x.x",
+    "@shopify/theme": "^3.x.x"
+  },
+    "scripts": {
+    "start": "shopify theme dev",
+    "build": "shopify theme build",
+    "deploy": "shopify theme push"
   }
 }

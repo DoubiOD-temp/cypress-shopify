@@ -17,20 +17,26 @@ jobs:
           node-version: 20
           cache: 'pnpm'
 
-      - name: Disable pnpm side-effects cache
-        run: pnpm config set side-effects-cache false --location project
-
       - name: Install dependencies
         run: pnpm install
 
       - name: Install Cypress binary
         run: pnpx cypress install
 
+      # For Shopify themes, you may need to authenticate
+      - name: Setup Shopify CLI
+        run: |
+          pnpx @shopify/cli version
+
       - uses: cypress-io/github-action@v6
         with:
           start: pnpm start
-          wait-on: 'http://localhost:3000'
+          wait-on: 'http://localhost:9292'  # Shopify CLI default port
+          wait-on-timeout: 120
           record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Add Shopify-specific environment variables if needed
+          SHOPIFY_STORE: ${{ secrets.SHOPIFY_STORE }}
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
