@@ -5,12 +5,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install pnpm
-        run: npm install -g pnpm
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Disable pnpm side-effects cache
+        run: pnpm config set side-effects-cache false --location project
+
       - name: Install dependencies
         run: pnpm install
-      - name: Verify Cypress install
+
+      - name: Install Cypress binary
         run: pnpx cypress install
+
       - uses: cypress-io/github-action@v6
         with:
           start: pnpm start
